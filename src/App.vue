@@ -1,25 +1,34 @@
 <script>
 import Header from '@/components/Header.vue'
 import CryptocurrencyListVue from '@/components/CryptocurrencyList.vue'
-import { mapGetters } from 'vuex';
+import ChartPopupVue from '@/components/ChartPopup.vue'
+import test from '@/components/test.vue'
+import { mapGetters } from 'vuex'
 
 export default {
 	components: {
 		Header,
-    CryptocurrencyListVue
+		CryptocurrencyListVue,
+		ChartPopupVue,
+		test
 	},
 
 	data() {
 		return {
-		}
+      	isChartPopupVisible: false,
+			}
 	},
-  computed: {
-    ...mapGetters('assets', ['assets']),
+	computed: {
+		...mapGetters('assets', ['assets']),
+	},
+	created() {
+		this.$store.dispatch('assets/fetchAssets')
+	},
+	methods: {
+    popupHandler() {
+      this.isChartPopupVisible = !this.isChartPopupVisible;
+    },
   },
-  created() {
-    this.$store.dispatch('assets/fetchAssets');
-  },
-  
 }
 </script>
 
@@ -30,7 +39,8 @@ export default {
 			<v-container>
 				<v-row>
 					<v-col col="12">
-						<CryptocurrencyListVue :assets="assets" />
+						<ChartPopupVue :popupStatus="isChartPopupVisible" @popupHandler="popupHandler" />
+						<CryptocurrencyListVue :assets="assets" @popupHandler="popupHandler"/>
 					</v-col>
 				</v-row>
 			</v-container>
@@ -38,5 +48,4 @@ export default {
 	</v-app>
 </template>
 
-<style >
-</style>
+<style></style>

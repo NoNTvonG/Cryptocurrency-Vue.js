@@ -1,5 +1,5 @@
 <template>
-	<v-app-bar app color="primary">
+	<v-app-bar app color="indigo-accent-3">
       <v-toolbar-title>Cryptocurrency</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-text-field

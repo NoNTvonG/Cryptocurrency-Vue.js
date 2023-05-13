@@ -15,7 +15,9 @@
 				<tr v-for="item in assets" :key="item.name">
 					<td>{{ item.rank }}</td>
 					<td>
-						{{ item.name }} <strong>{{ item.symbol }}</strong>
+						<a class="history-link" @click.prevent="fetchCoinData(item.name); popupHandler()">
+							{{ item.name }} <strong>{{ item.symbol }}</strong>
+						</a>
 					</td>
 					<td class="text-right">
 						{{
@@ -27,9 +29,7 @@
 						}}
 					</td>
 					<td class="text-right">
-						{{
-							parseFloat(item.changePercent24Hr).toFixed(2)
-						}}
+						{{ parseFloat(item.changePercent24Hr).toFixed(2) }}
 					</td>
 					<td class="text-right">
 						{{
@@ -47,7 +47,8 @@
 								minimumFractionDigits: 0,
 								maximumFractionDigits: 0,
 							})
-						}} {{ item.symbol }}
+						}}
+						{{ item.symbol }}
 					</td>
 				</tr>
 			</tbody>
@@ -58,18 +59,30 @@
 <script>
 export default {
 	data() {
-		return {}
+		return {
+		}
 	},
 	props: {
 		assets: Array,
 	},
-	filters: {
-		currency(value) {
-			return value
+
+	methods: {
+		fetchCoinData(coinName) {
+			const formatName = coinName
+				.toLowerCase()
+				.replace(/ /g, '-')
+				.replace(/\./g, '-')
+			this.$store.dispatch('assets/fetchSingleAsset', formatName)
 		},
+		popupHandler() {
+      this.$emit("popupHandler");
+    }
 	},
 }
 </script>
 
 <style lang="scss" scoped>
+.history-link{
+	cursor: pointer;
+}
 </style>
