@@ -1,24 +1,28 @@
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
 	data() {
 		return {
 			searchText: '',
-      fetchStatus: false
 		}
+	},
+	computed: {
+		...mapGetters('assets', ['searchStatus']),
 	},
 	methods: {
     fetchSingleCoin(coinName) {
-      if(coinName && !this.fetchStatus) {
+      if(coinName && !this.searchStatus) {
         const formatName = coinName
           .toLowerCase()
           .replace(/ /g, '-')
           .replace(/\./g, '-')
         this.$store.dispatch('assets/fetchAssetSingle', formatName)
-        this.fetchStatus = true
+        this.$store.dispatch('assets/changeSearchStatus', true)
       } else {
         this.$store.dispatch('assets/fetchAssets')
+        this.$store.dispatch('assets/changeSearchStatus', false)
         this.searchText = ''
-        this.fetchStatus = false
       }
 		},
 	},
@@ -34,7 +38,7 @@ export default {
     @keydown.enter="fetchSingleCoin(searchText)"
 	></v-text-field>
 	<v-btn icon @click="fetchSingleCoin(searchText)">
-		<v-icon v-if="!fetchStatus">mdi-magnify</v-icon>
+		<v-icon v-if="!searchStatus">mdi-magnify</v-icon>
     <v-icon v-else>mdi-close</v-icon>
 	</v-btn>
 </template>

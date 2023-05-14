@@ -2,13 +2,15 @@
 import Header from '@/components/Header.vue'
 import CryptocurrencyListVue from '@/components/CryptocurrencyList.vue'
 import ChartPopupVue from '@/components/ChartPopup.vue'
+import PaginationVue from '@/components/Pagination.vue'
 import { mapGetters } from 'vuex'
 
 export default {
 	components: {
 		Header,
 		CryptocurrencyListVue,
-		ChartPopupVue
+		ChartPopupVue,
+		PaginationVue
 	},
 
 	data() {
@@ -18,6 +20,7 @@ export default {
 	},
 	computed: {
 		...mapGetters('assets', ['assets']),
+		...mapGetters('assets', ['searchStatus']),
 	},
 	created() {
 		this.$store.dispatch('assets/fetchAssets')
@@ -39,11 +42,12 @@ export default {
 					<v-col col="12">
 						<ChartPopupVue :popupStatus="isChartPopupVisible" @popupHandler="popupHandler" />
 						<CryptocurrencyListVue :assets="assets" @popupHandler="popupHandler"/>
+						<PaginationVue v-if="!searchStatus" />
 					</v-col>
 				</v-row>
 			</v-container>
 		</v-main>
 	</v-app>
 </template>
-
+	
 <style></style>

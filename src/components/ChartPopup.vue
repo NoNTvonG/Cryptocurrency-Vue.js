@@ -3,9 +3,8 @@
 		<v-card>
 			<v-card-actions>
 				<v-spacer></v-spacer>
-				<v-btn color="primary" @click="popupHandler()">
+				<v-btn color="primary" prepend-icon="mdi-close" @click="popupHandler()">
 					Close window
-					<v-icon>mdi-close</v-icon>
 				</v-btn>
 			</v-card-actions>
 			<v-card-text>

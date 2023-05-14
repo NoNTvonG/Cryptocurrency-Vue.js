@@ -2,7 +2,8 @@ import apiClient from '@/services/apiClient';
 
 const state = {
   assets: [],
-  assetHistory: []
+  assetHistory: [],
+  searchStatus: false
 };
 
 const mutations = {
@@ -15,11 +16,14 @@ const mutations = {
   SET_SINGLE_COIN(state, assets) {
     state.assets = [assets];
   },
+  CHANGE_SEARCH_STATUS(state, status) {
+    state.searchStatus = status
+  }
 };
 
 const actions = {
-  async fetchAssets({ commit }) {
-    const response = await apiClient.getAssets();
+  async fetchAssets({ commit }, limit) {
+    const response = await apiClient.getAssets(limit);
     const assets = response.data.data;
     commit('SET_ASSETS', assets);
   },
@@ -32,6 +36,9 @@ const actions = {
     const response = await apiClient.getAssetSingle(coinName);
     const asset = response.data.data;
     commit('SET_SINGLE_COIN', asset);
+  },
+  changeSearchStatus({commit}, status) {
+    commit('CHANGE_SEARCH_STATUS', status);
   }
 };
 
@@ -39,6 +46,7 @@ const getters = {
   assets: state => state.assets,
   assetSingle: state => state.assetSingle,
   assetHistory: state => state.assetHistory,
+  searchStatus: state => state.searchStatus,
 };
 
 export default {
