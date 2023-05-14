@@ -1,7 +1,6 @@
-# Vue 3 + Vite
+# Cryptocurrency
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+Hello, this is my recruitment project.<br/>
+I using `Vue.js`, `Vuex`, `Vuetify` and API [CoinCap API 2.0](https://docs.coincap.io/).
 
-## Recommended IDE Setup
-
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+This is simple project where you can see list crypto coins and you have pagination in order to browse different cryptocurrencies. Also in the header is a search bar where you can searching crypto coins (The entry in the search must be written in this format: `Bitcoin` not `BTC`). Also if you click on the name on the cryptocurrency or on the statistic on the right side, you can see crypto history for selected coin.
