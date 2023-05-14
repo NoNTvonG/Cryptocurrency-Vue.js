@@ -72,7 +72,7 @@ export default {
 				.toLowerCase()
 				.replace(/ /g, '-')
 				.replace(/\./g, '-')
-			this.$store.dispatch('assets/fetchSingleAsset', formatName)
+			this.$store.dispatch('assets/fetchAssetHistory', formatName)
 		},
 		popupHandler() {
       this.$emit("popupHandler");

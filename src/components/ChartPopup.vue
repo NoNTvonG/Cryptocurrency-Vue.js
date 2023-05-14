@@ -2,8 +2,10 @@
 	<v-dialog v-model="dialog" :style="{ width: '90%' }">
 		<v-card>
 			<v-card-actions>
-				<v-btn color="primary" block @click="popupHandler()">
-					Close Dialog
+				<v-spacer></v-spacer>
+				<v-btn color="primary" @click="popupHandler()">
+					Close window
+					<v-icon>mdi-close</v-icon>
 				</v-btn>
 			</v-card-actions>
 			<v-card-text>
@@ -33,12 +35,12 @@ export default {
 		popupStatus: function (newVal) {
 			this.dialog = newVal
 		},
-		assetSingle: function () {
+		assetHistory: function () {
 			this.renderChart()
 		},
 	},
 	computed: {
-		...mapGetters('assets', ['assetSingle']),
+		...mapGetters('assets', ['assetHistory']),
 	},
 
 	mounted() {
@@ -50,7 +52,7 @@ export default {
 			this.$emit('popupHandler')
 		},
 		renderChart() {
-			if (!this.$refs.myChart || !this.assetSingle) {
+			if (!this.$refs.myChart || !this.assetHistory) {
 				return
 			}
 
@@ -58,7 +60,7 @@ export default {
 			const myChart = new Chart(ctx, {
 				type: 'line',
 				data: {
-					labels: this.assetSingle.map(asset => {
+					labels: this.assetHistory.map(asset => {
 						const date = new Date(asset.date)
 						const formattedDate = date.toLocaleDateString('uk-UA', {
 							day: '2-digit',
@@ -70,7 +72,7 @@ export default {
 					datasets: [
 						{
 							pointRadius: 0,
-							data: this.assetSingle.map(asset => asset.priceUsd),
+							data: this.assetHistory.map(asset => asset.priceUsd),
 							borderWidth: 1,
             	borderColor: 'rgb(61, 90, 254, 0.7)',
 							fill: true,
@@ -108,7 +110,7 @@ export default {
 										label += ': '
 									}
 									if (context.parsed.y !== null) {
-										label += new Intl.NumberFormat('uk-UA', {
+										label += new Intl.NumberFormat('en-US', {
 											style: 'currency',
 											currency: 'USD',
 										}).format(context.parsed.y)
@@ -138,7 +140,7 @@ export default {
 									size: 12,
 								},
 								callback: function (value, index, values) {
-									return new Intl.NumberFormat('uk-UA', {
+									return new Intl.NumberFormat('en-US', {
 										style: 'currency',
 										currency: 'USD',
 									}).format(value)

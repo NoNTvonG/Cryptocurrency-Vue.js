@@ -2,15 +2,13 @@
 import Header from '@/components/Header.vue'
 import CryptocurrencyListVue from '@/components/CryptocurrencyList.vue'
 import ChartPopupVue from '@/components/ChartPopup.vue'
-import test from '@/components/test.vue'
 import { mapGetters } from 'vuex'
 
 export default {
 	components: {
 		Header,
 		CryptocurrencyListVue,
-		ChartPopupVue,
-		test
+		ChartPopupVue
 	},
 
 	data() {

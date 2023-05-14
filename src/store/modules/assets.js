@@ -2,7 +2,7 @@ import apiClient from '@/services/apiClient';
 
 const state = {
   assets: [],
-  assetSingle: []
+  assetHistory: []
 };
 
 const mutations = {
@@ -10,7 +10,10 @@ const mutations = {
     state.assets = assets;
   },
   SET_SELECTED_COIN(state, asset) {
-    state.assetSingle = asset;
+    state.assetHistory = asset;
+  },
+  SET_SINGLE_COIN(state, assets) {
+    state.assets = [assets];
   },
 };
 
@@ -20,16 +23,22 @@ const actions = {
     const assets = response.data.data;
     commit('SET_ASSETS', assets);
   },
-  async fetchSingleAsset({ commit }, coinName) {
-    const response = await apiClient.getSingleAsset(coinName);
+  async fetchAssetHistory({ commit }, coinName) {
+    const response = await apiClient.getAssetHistory(coinName);
     const asset = response.data.data;
     commit('SET_SELECTED_COIN', asset);
   },
+  async fetchAssetSingle({commit}, coinName) {
+    const response = await apiClient.getAssetSingle(coinName);
+    const asset = response.data.data;
+    commit('SET_SINGLE_COIN', asset);
+  }
 };
 
 const getters = {
   assets: state => state.assets,
   assetSingle: state => state.assetSingle,
+  assetHistory: state => state.assetHistory,
 };
 
 export default {
